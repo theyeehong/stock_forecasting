@@ -1,0 +1,15 @@
+stock-forecast/
+├── model/
+│   ├── train.ipynb
+│   └── stock_model.h5
+│
+├── backend/
+│   ├── app.py
+│   └── requirements.txt
+│
+└── frontend/
+    ├── src/
+    │   ├── App.tsx
+    │   └── index.tsx
+    ├── tsconfig.json
+    └── package.json
