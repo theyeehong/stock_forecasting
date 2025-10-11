@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Table2, ChartSpline } from 'lucide-react';
 import './styles.css';
+import App from "./app";
 
 const API_BASE = 'https://salt-forecasting.onrender.com';
 
