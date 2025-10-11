@@ -25,3 +25,6 @@ It collects data, trains forecasting models, and visualizes future stock trends.
 - LSTM
 - 60 days seq
 - min max scaling
+
+### Data
+- SQLite
