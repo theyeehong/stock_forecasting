@@ -30,9 +30,9 @@ It collects data, trains forecasting models, and visualizes future stock trends.
 - SQLite
 
 ### To Start
-# Terminal 1
+#### Terminal 1
 - cd stock-dashboard/backend
 - uvicorn app:app --reload
-# Terminal 2
+#### Terminal 2
 - cd stock-dashboard
 - npm start
