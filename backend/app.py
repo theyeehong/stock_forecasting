@@ -124,7 +124,8 @@ def predictStockPrices(modelName, stockName, stockData, timeStep, outputLength):
     if len(df_clean) < timeStep:
         raise HTTPException(status_code=400, 
                           detail=f"Insufficient data. Need {timeStep} days, got {len(df_clean)}")
- 
+    
+    previousPrice = df_clean['Close'].iloc[-2]
     currentPrice = df_clean['Close'].iloc[-1]
     scaled_features = scaler_features.transform(df_clean[feature_columns].values)
     last_sequence = scaled_features[-timeStep:]
@@ -145,9 +146,8 @@ def predictStockPrices(modelName, stockName, stockData, timeStep, outputLength):
         new_features = new_features.reshape(1, 1, len(feature_columns))
         current_seq = np.concatenate([current_seq[:, 1:, :], new_features], axis=1)
         
-    finalPrice = predictions[-1]["price"]
-    priceChange = finalPrice - currentPrice
-    percentChange = (priceChange / currentPrice) * 100
+    priceChange = currentPrice - previousPrice
+    percentChange = (priceChange / previousPrice) * 100
     
     return {
         "stock": stockName,
