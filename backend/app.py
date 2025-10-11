@@ -50,9 +50,9 @@ SCALERS_FEATURES = {}
 SCALERS_TARGET = {}
 
 for model, config in MODELCONFIG.items():
-    MODELS[model] = tf.keras.models.load_model(f"../model/models/{config["modelPath"]}")
-    SCALERS_FEATURES[model] = joblib.load(f"../model/scalers/{config['scalerFeaturesPath']}")
-    SCALERS_TARGET[model] = joblib.load(f"../model/scalers/{config['scalerTargetPath']}")
+    MODELS[model] = tf.keras.models.load_model(f"model/models/{config["modelPath"]}")
+    SCALERS_FEATURES[model] = joblib.load(f"model/scalers/{config['scalerFeaturesPath']}")
+    SCALERS_TARGET[model] = joblib.load(f"model/scalers/{config['scalerTargetPath']}")
     
 
 def normalize_columns(df):
@@ -87,7 +87,7 @@ def calculateFeatures(data):
     return df
     
 def findData(tickers, days=None):
-     db_path = os.path.join(os.path.dirname(__file__), "../data/stock_data.db")
+     db_path = os.path.join(os.path.dirname(__file__), "data/stock_data.db")
      allStockData = {}
      conn = sqlite3.connect(db_path)
      for name, ticker in tickers.items():
@@ -241,3 +241,7 @@ async def getHistoricalData(modelName: str, stock: str, days: Optional[int] = Qu
         stock=stock,
         data=historical
     )
+    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app="app:app", host="0.0.0.0", port=8000, reload=True)
