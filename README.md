@@ -1,5 +1,11 @@
 # Stock Price Forecasting
 
+### Backend
+- https://salt-forecasting.onrender.com
+
+### Frontend
+- https://stock-forecasting-q0u1.onrender.com
+
 ## Overview
 This projects predicts stock prices using machine learning models.  
 It collects data, trains forecasting models, and visualizes future stock trends.
