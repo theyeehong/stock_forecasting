@@ -16,6 +16,9 @@ from ta.volume import OnBalanceVolumeIndicator
 import sqlite3
 from responseModel import *
 
+seed = 8989
+tf.random.set_seed(seed)
+np.random.seed(seed)
 
 app = FastAPI(
     title="Stock Forecasting Api",
@@ -87,22 +90,20 @@ def calculateFeatures(data):
     return df
     
 def findData(tickers, days=None):
-     db_path = os.path.join(os.path.dirname(__file__), "data/stock_data.db")
-     allStockData = {}
-     conn = sqlite3.connect(db_path)
-     for name, ticker in tickers.items():
-        try:
-            data = pd.read_sql(f"SELECT * FROM {name}", conn, index_col='Date', parse_dates=['Date'])
+    allStockData = {}
+    
+    for name, ticker in tickers.items():
+        data = yf.download(ticker, period="5y", interval="1d")
+        if not data.empty:
             data = normalize_columns(data)
             if days is not None:
                 data = data.tail(days)
             allStockData[name] = data
-            print(f"{name}: No new data, loaded from database ({len(data)} days)")
-        except:
-            print(f"{name}: No data found and no database backup available")
+            print(f"{name}: {len(data)} days - fetched from Yahoo Finance")
+        else:
+            print(f"{name}: No data available from Yahoo Finance")
     
-     conn.close()
-     return allStockData
+    return allStockData
 
 def predictStockPrices(modelName, stockName, stockData, timeStep, outputLength):
     model = MODELS[modelName]
