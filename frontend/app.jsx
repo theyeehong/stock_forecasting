@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { TrendingUp, Table2, ChartSpline } from 'lucide-react';
 import './styles.css';
 
-const API_BASE = 'https://salt-forecasting.onrender.com';
+const API_BASE = 'http://127.0.0.1:8000';
 
 export default function StockForecastDashboard() {
     const [models, setModels] = useState([]);
